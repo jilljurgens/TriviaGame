@@ -86,12 +86,13 @@ $(document).ready(function() {
 				setTimeout(startTimer,1000);
 			}
 			$("#timer").text(n);
-			console.log(timer);	
+			//console.log(timer);	
    		 }
    	//this is a function to stop the timer	 
 	function stopTimer() {
     clearTimeout(n);
 	}
+
 
 	function getNewQandA() {
 		$("#question").text(Questions[curIndex].question);
@@ -101,29 +102,30 @@ $(document).ready(function() {
 				correct: current.correct
 			}).text(current.answer);
 		}
-		startTimer();
+		
 
 	}
 	//this is to call the first question and start the game
 	getNewQandA();
+	startTimer();
 
 	// to get new ?, do curIndex ++
+	function gameOver(){
+		$("#previousStat").text("Game Over!You got " + totalCorrect + " Correct, " + totalWrong + " Wrong, and " + outOfTime + " you ran out of time. Refresh the page to play again!");
+	}
 
 
 	function checkAnswer() {
 		var answer = $(this).attr('correct');
 		console.log(answer);
-		if (curIndex == Questions.length){
-			console.log("game over");
-		}
-		else if (answer == 'true') {
+		 if (answer == 'true') {
 			console.log("true");
 			$("#previousStat").html("Correct!");
 			totalCorrect++;
 			console.log(totalCorrect);
 			curIndex++;
-			stopTimer();
 			getNewQandA();
+
 		}
 		else if (answer == 'false') {
 			console.log("false");
@@ -140,6 +142,11 @@ $(document).ready(function() {
 		}
 		else if (curIndex == Questions.length){
 			console.log("game over");
+			$(".answerbtn").hide();
+			$("#question").hide();
+			$("#timer").hide();
+			gameOver();
+
 			//write out html to show correct,incorrect, out of time
 		}
 		;
