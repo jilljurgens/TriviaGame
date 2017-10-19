@@ -175,31 +175,14 @@ $(document).ready(function() {
 		}
 	];
 	
-	//this is the timer function set for 30 seconds
-	var n = 30;
-	setTimeout(timer,1000);
-		function startTimer() {
-			n--;
-			if (n>0){
-				setTimeout(startTimer,1000);
-			}
-			$("#timer").text(n);
-			//console.log(timer);	
-   		 }
-   	//this is a function to stop the timer	 
-	function stopTimer() {
-    clearTimeout();
-	}
-	//			clearTimeout(startTimer);
 
 
 
+	//this is to go through the questions array with a for loop to display questions/answers
 	function getNewQandA() {
 		if (curIndex == Questions.length){
-			console.log("game over");
 			gameOver();
 			return;
-			//out of time not working, game over not working, reset timer not working
 		}
 		$("#question").text(Questions[curIndex].question);
 		for (i = 0; i < Questions[curIndex].answers.length; i++) {
@@ -213,10 +196,27 @@ $(document).ready(function() {
 	}
 	//this is to call the first question and start the game
 	getNewQandA();
-	startTimer();
 
-	//var clearTimer = setTimeout(timer, 1000);
 	
+	//this is the timer function set for 20 seconds
+	var timeLeft = 20;
+	var elem = $("#timer");
+	var timerId = setInterval(countdown, 1000);
+
+	function countdown() {
+  		if (timeLeft == 0) {
+   		curIndex ++;
+    	getNewQandA();
+ 		outOfTime++;
+ 		timeLeft = 20;
+ 		}	
+
+ 		else {
+     		$("#timer").text(timeLeft + ' seconds remaining');
+    		timeLeft--;
+ 		}
+
+	}
 
 
 
@@ -224,37 +224,29 @@ $(document).ready(function() {
 		var answer = $(this).attr('correct');
 		//console.log(answer);
 		 if (answer == 'true') {
-			console.log("true");
-			$("#previousStat").html("Correct!");
+			$("#previousStat").html("Previous Answer was Correct!");
 			totalCorrect++;
-			console.log(totalCorrect);
 			curIndex++;
-			stopTimer();
-			//clearTimeout(clearTimer);
 			getNewQandA();
+			timeLeft = 20;
+			countdown();
 
 		}
 		else if (answer == 'false') {
-			console.log("false");
-			$("#previousStat").html("Incorrect");
+			$("#previousStat").html("Previous Answer was Incorrect");
 			totalWrong++;
-			console.log(totalWrong);
 			curIndex++;
 			getNewQandA();
-		}
-		else if (timer == 0){
-			outOfTime++;
-			curIndex++;
-			console.log(outOfTime);
-			getNewQandA();
+			timeLeft = 20;
+			countdown();
 		}
 
-		console.log("curIndex: " + curIndex);
 	}
 
+// This is the on click function to run the function to see if they got it correct
 	$(".answerbtn").on("click", checkAnswer);
 
-		// to get new ?, do curIndex ++
+// This is to display the stats when the game is over
 	function gameOver(){
 		$("#previousStat").text("Game Over!   Refresh the page to play again!");
 		$("#showCorrect").text("You got " + totalCorrect + " correct!");

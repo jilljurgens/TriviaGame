@@ -1,6 +1,26 @@
-button:hover {
-  background: #3071A9
+h1{
+	font-size: 50px;
+	color: #f442ce;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(255,255,255,1) , 0 2px 0 rgba(255,255,255,1) , 0 3px 0 rgba(255,255,255,1) , 0 4px 0 rgba(255,255,255,1) , 0 5px 0 rgba(255,255,255,1) , 0 6px 1px rgba(0,0,0,0.0980392) , 0 0 5px rgba(0,0,0,0.0980392) , 0 1px 3px rgba(0,0,0,0.298039) , 0 3px 5px rgba(0,0,0,0.2) , 0 -5px 10px rgba(0,0,0,0.247059) , 0 -7px 10px rgba(0,0,0,0.2) , 0 -15px 20px rgba(0,0,0,0.14902) ;
+  	font-weight: bolder;
+
 }
-button{
-	width: 50%;
+
+.jumbotron{
+	text-align: center;
 }
+#timer{
+	margin: auto;
+	width: 25%;
+	font-size: 25px;
+	border: 2px #f442ce dotted;
+	padding: 5px;
+}
+#question{
+	font-size: 20px;
+}
+.stats{
+	font-size: 30px;
+}
+
